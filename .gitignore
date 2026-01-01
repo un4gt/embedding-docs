@@ -1,0 +1,23 @@
+# Local
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.local
+*.log*
+
+# Env
+.env
+.env.*
+!.env.example
+
+# Dist
+node_modules
+dist/
+
+# Profile
+.rspack-profile-*/
+
+# IDE
+.vscode/*
+!.vscode/extensions.json
+.idea
