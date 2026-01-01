@@ -5,7 +5,6 @@ import { CopyButton } from './components/CopyButton';
 const BASE_URL = 'https://router.tumuer.me/v1';
 const MODELS = [
   'embedding-001',
-  'gemini-embedding-exp-03-07',
   'text-embedding-004',
   'text-embedding-3-large',
   'text-embedding-3-small',
@@ -29,7 +28,6 @@ client = OpenAI(
 
 models = [
     "embedding-001",
-    "gemini-embedding-exp-03-07",
     "text-embedding-004",
     "text-embedding-3-large",
     "text-embedding-3-small",
@@ -60,7 +58,6 @@ const client = new OpenAI({
 
 const models = [
   "embedding-001",
-  "gemini-embedding-exp-03-07",
   "text-embedding-004",
   "text-embedding-3-large",
   "text-embedding-3-small",
@@ -280,10 +277,27 @@ const App = () => {
                   <span className="em">Model</span> 选择上方任意模型（推荐{' '}
                   <code className="inlineCode">text-embedding-3-small</code>），保存后重新构建索引。
                 </li>
+                <li>
+                  如果需要填写 <span className="em">Model Dimension</span>，可先调用一次 <code className="inlineCode">/embeddings</code>，用返回向量的长度作为维度。
+                </li>
               </ol>
             </div>
-            <div className="callout" role="note">
-              不要把 API Key 写进浏览器前端代码；前端直连会暴露 Key。用于索引、后端或本地工具更安全。
+
+            <div className="card">
+              <div className="cardTitle">参考配置截图</div>
+              <figure className="figure">
+                <a className="figureLink" href="/image.png" target="_blank" rel="noreferrer">
+                  <img
+                    className="figureImage"
+                    src="/image.png"
+                    width={674}
+                    height={754}
+                    loading="lazy"
+                    alt="KiloCode Code Index / Embeddings 设置示例：OpenAI Compatible、Base URL、API Key、Model 与 Model Dimension"
+                  />
+                </a>
+                <figcaption className="figureCaption">点击图片可查看大图</figcaption>
+              </figure>
             </div>
           </section>
         </div>

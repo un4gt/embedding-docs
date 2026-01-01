@@ -419,6 +419,31 @@ a:hover {
   margin: 6px 0;
 }
 
+.figure {
+  margin: 12px 0 0;
+}
+
+.figureLink {
+  display: block;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(0, 0, 0, 0.26);
+}
+
+.figureImage {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.figureCaption {
+  margin-top: 10px;
+  color: var(--faint);
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
 .em {
   color: rgba(255, 255, 255, 0.9);
   font-weight: 620;
