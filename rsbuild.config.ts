@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [pluginReact()],
   html: {
     title: 'Embedding API 使用指南',
-    favicon: './public/favicon.png',
+    favicon: './public/favicon.svg',
     meta: {
       description: 'OpenAI 兼容的 Embeddings 使用指南：base_url、api_key、模型列表与多语言调用示例。',
     },

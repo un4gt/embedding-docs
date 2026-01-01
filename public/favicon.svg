@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="embedding">
+  <defs>
+    <linearGradient id="g" x1="20" y1="18" x2="108" y2="110" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#78E9FF" />
+      <stop offset="0.55" stop-color="#9DD7FF" />
+      <stop offset="1" stop-color="#B59BFF" />
+    </linearGradient>
+    <radialGradient id="glow" cx="30" cy="18" r="90" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#78E9FF" stop-opacity="0.35" />
+      <stop offset="1" stop-color="#78E9FF" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+
+  <rect width="128" height="128" rx="28" fill="#050816" />
+  <rect width="128" height="128" rx="28" fill="url(#glow)" />
+
+  <circle cx="64" cy="64" r="36" fill="url(#g)" />
+
+  <path
+    d="M44 58c7-10 33-10 40 0"
+    fill="none"
+    stroke="#050816"
+    stroke-width="6"
+    stroke-linecap="round"
+    opacity="0.35"
+  />
+  <path
+    d="M44 70c7-10 33-10 40 0"
+    fill="none"
+    stroke="#050816"
+    stroke-width="6"
+    stroke-linecap="round"
+    opacity="0.3"
+  />
+  <path
+    d="M44 82c7-10 33-10 40 0"
+    fill="none"
+    stroke="#050816"
+    stroke-width="6"
+    stroke-linecap="round"
+    opacity="0.25"
+  />
+
+  <g fill="#050816" opacity="0.35">
+    <circle cx="44" cy="58" r="3.2" />
+    <circle cx="84" cy="58" r="3.2" />
+    <circle cx="44" cy="70" r="3.2" />
+    <circle cx="84" cy="70" r="3.2" />
+    <circle cx="44" cy="82" r="3.2" />
+    <circle cx="84" cy="82" r="3.2" />
+  </g>
+
+  <g fill="#ffffff" opacity="0.12">
+    <circle cx="25" cy="30" r="2" />
+    <circle cx="103" cy="28" r="1.8" />
+    <circle cx="98" cy="98" r="2" />
+    <circle cx="28" cy="96" r="1.6" />
+  </g>
+</svg>
