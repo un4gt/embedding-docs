@@ -3,15 +3,26 @@ import { CodeTabs, type CodeSample } from './components/CodeTabs';
 import { CopyButton } from './components/CopyButton';
 
 const BASE_URL = 'https://router.tumuer.me/v1';
+const DEFAULT_MODEL = 'Qwen/Qwen3-Embedding-4B';
 const MODELS = [
-  'embedding-001',
-  'text-embedding-004',
-  'text-embedding-3-large',
-  'text-embedding-3-small',
-  'text-embedding-ada-002',
+  { id: 'BAAI/bge-m3', dimensions: '1024', context: '8K' },
+  { id: 'Qwen/Qwen3-Embedding-0.6B', dimensions: '1024', context: '32K' },
+  { id: 'text-embedding-004', dimensions: '768', context: '20K' },
+  { id: 'Qwen/Qwen3-Embedding-4B', dimensions: '2560', context: '32K' },
+  { id: 'embedding-001', dimensions: '768 / 1536 / 3072（默认 3072）', context: '20K' },
+  { id: 'Pro/BAAI/bge-m3', dimensions: '1024', context: '8K' },
+  { id: 'Qwen/Qwen3-Embedding-8B', dimensions: '4096', context: '32K' },
 ] as const;
 
-const MODEL_LIST_TEXT = MODELS.map((model) => `- ${model}`).join('\n');
+const MODEL_IDS = MODELS.map((model) => model.id);
+
+const MODEL_LIST_TEXT = MODEL_IDS.map((model) => `- ${model}`).join('\n');
+const MODEL_INFO_LIST_TEXT = MODELS.map(
+  (model) => `- ${model.id}｜维度 ${model.dimensions}｜Context ${model.context}`,
+).join('\n');
+
+const PYTHON_MODEL_LIST = MODEL_IDS.map((model) => `    "${model}",`).join('\n');
+const NODE_MODEL_LIST = MODEL_IDS.map((model) => `  "${model}",`).join('\n');
 
 const CODE_SAMPLES: CodeSample[] = [
   {
@@ -27,11 +38,7 @@ client = OpenAI(
 )
 
 models = [
-    "embedding-001",
-    "text-embedding-004",
-    "text-embedding-3-large",
-    "text-embedding-3-small",
-    "text-embedding-ada-002",
+${PYTHON_MODEL_LIST}
 ]
 
 for model in models:
@@ -57,11 +64,7 @@ const client = new OpenAI({
 });
 
 const models = [
-  "embedding-001",
-  "text-embedding-004",
-  "text-embedding-3-large",
-  "text-embedding-3-small",
-  "text-embedding-ada-002",
+${NODE_MODEL_LIST}
 ];
 
 for (const model of models) {
@@ -91,7 +94,7 @@ headers = {
 }
 
 payload = {
-    "model": "text-embedding-3-small",
+    "model": "${DEFAULT_MODEL}",
     "input": "这是一段需要转换成向量的文本",
     "encoding_format": "float",
 }
@@ -117,7 +120,7 @@ headers = {
 }
 
 payload = {
-    "model": "text-embedding-3-small",
+    "model": "${DEFAULT_MODEL}",
     "input": "这是一段需要转换成向量的文本",
     "encoding_format": "float",
 }
@@ -136,7 +139,7 @@ with httpx.Client(timeout=60) as client:
   -H "Authorization: Bearer $OPENAI_API_KEY" \\
   -H "Content-Type: application/json" \\
   -d '{
-    "model": "text-embedding-3-small",
+    "model": "${DEFAULT_MODEL}",
     "input": "这是一段需要转换成向量的文本",
     "encoding_format": "float"
   }'`,
@@ -218,7 +221,7 @@ const App = () => {
                 <div className="cardTitle">3）选择 model</div>
                 <div className="cardBody">
                   从下方 “可用模型” 中选择其一；通用推荐{' '}
-                  <code className="inlineCode">text-embedding-3-small</code>。
+                  <code className="inlineCode">{DEFAULT_MODEL}</code>。
                 </div>
               </div>
 
@@ -235,19 +238,28 @@ const App = () => {
           <section className="section" id="models">
             <div className="sectionHeader">
               <h2>可用模型</h2>
-              <CopyButton value={MODEL_LIST_TEXT} ariaLabel="复制模型列表" label="复制列表" />
+              <div className="sectionHeaderActions">
+                <CopyButton value={MODEL_LIST_TEXT} ariaLabel="复制模型名列表" label="复制模型名" />
+                <CopyButton value={MODEL_INFO_LIST_TEXT} ariaLabel="复制模型（含维度/上下文）列表" label="复制含维度" />
+              </div>
             </div>
             <ul className="modelList" aria-label="模型列表">
               {MODELS.map((model) => (
-                <li key={model} className="modelItem">
-                  <code className="inlineCode">{model}</code>
+                <li key={model.id} className="modelItem">
+                  <code className="inlineCode">{model.id}</code>
+                  <div className="modelMeta" aria-label="模型参数">
+                    <div className="modelMetaItem">
+                      <span className="modelMetaKey">维度</span>
+                      <code className="inlineCode">{model.dimensions}</code>
+                    </div>
+                    <div className="modelMetaItem">
+                      <span className="modelMetaKey">Context</span>
+                      <code className="inlineCode">{model.context}</code>
+                    </div>
+                  </div>
                 </li>
               ))}
             </ul>
-            <p className="note">
-              选择建议：追求效果可选 <code className="inlineCode">text-embedding-3-large</code>；追求速度与成本可选{' '}
-              <code className="inlineCode">text-embedding-3-small</code>。
-            </p>
           </section>
 
           <section className="section" id="examples">
@@ -275,10 +287,11 @@ const App = () => {
                 </li>
                 <li>
                   <span className="em">Model</span> 选择上方任意模型（推荐{' '}
-                  <code className="inlineCode">text-embedding-3-small</code>），保存后重新构建索引。
+                  <code className="inlineCode">{DEFAULT_MODEL}</code>），保存后重新构建索引。
                 </li>
                 <li>
-                  如果需要填写 <span className="em">Model Dimension</span>，可先调用一次 <code className="inlineCode">/embeddings</code>，用返回向量的长度作为维度。
+                  如果需要填写 <span className="em">Model Dimension</span>，可参考上方模型参数；也可先调用一次{' '}
+                  <code className="inlineCode">/embeddings</code>，用返回向量的长度作为维度。
                 </li>
               </ol>
             </div>
