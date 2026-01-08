@@ -166,6 +166,9 @@ const App = () => {
               <a href="#models">模型</a>
               <a href="#examples">示例</a>
               <a href="#kilocode">KiloCode</a>
+              <a href="https://status-router.tumuer.me/" target="_blank" rel="noreferrer">
+                状态检测
+              </a>
             </nav>
           </div>
 
