@@ -8,6 +8,7 @@ export default defineConfig({
     title: 'Embedding API 使用指南',
     favicon: './public/favicon.svg',
     meta: {
+      'theme-color': '#f7f8ff',
       description: 'OpenAI 兼容的 Embeddings 使用指南：base_url、api_key、模型列表与多语言调用示例。',
     },
   },
