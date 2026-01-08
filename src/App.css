@@ -436,6 +436,68 @@ a:hover {
   color: rgba(15, 23, 42, 0.9);
 }
 
+.codeBlock .token.comment,
+.codeBlock .token.prolog,
+.codeBlock .token.doctype,
+.codeBlock .token.cdata {
+  color: rgba(15, 23, 42, 0.55);
+}
+
+.codeBlock .token.punctuation {
+  color: rgba(15, 23, 42, 0.65);
+}
+
+.codeBlock .token.property,
+.codeBlock .token.tag,
+.codeBlock .token.boolean,
+.codeBlock .token.number,
+.codeBlock .token.constant,
+.codeBlock .token.symbol,
+.codeBlock .token.deleted {
+  color: #db2777;
+}
+
+.codeBlock .token.selector,
+.codeBlock .token.attr-name,
+.codeBlock .token.string,
+.codeBlock .token.char,
+.codeBlock .token.builtin,
+.codeBlock .token.inserted {
+  color: #059669;
+}
+
+.codeBlock .token.operator,
+.codeBlock .token.entity,
+.codeBlock .token.url,
+.codeBlock .token.variable {
+  color: rgba(15, 23, 42, 0.75);
+}
+
+.codeBlock .token.atrule,
+.codeBlock .token.attr-value,
+.codeBlock .token.function,
+.codeBlock .token.class-name {
+  color: #0ea5e9;
+}
+
+.codeBlock .token.keyword {
+  color: #7c3aed;
+}
+
+.codeBlock .token.regex,
+.codeBlock .token.important {
+  color: #b45309;
+}
+
+.codeBlock .token.bold,
+.codeBlock .token.important {
+  font-weight: 700;
+}
+
+.codeBlock .token.italic {
+  font-style: italic;
+}
+
 .list {
   margin: 0;
   padding-left: 18px;

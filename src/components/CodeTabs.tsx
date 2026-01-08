@@ -1,5 +1,5 @@
 import type { KeyboardEvent } from 'react';
-import { useId, useMemo, useRef, useState } from 'react';
+import { useEffect, useId, useMemo, useRef, useState } from 'react';
 import { CopyButton } from './CopyButton';
 
 export type CodeSample = {
@@ -13,6 +13,23 @@ type CodeTabsProps = {
   samples: CodeSample[];
 };
 
+const getPrismLanguage = (label: string) => {
+  const normalized = label.toLowerCase();
+  if (normalized.includes('python')) {
+    return 'python';
+  }
+  if (normalized.includes('typescript')) {
+    return 'typescript';
+  }
+  if (normalized.includes('javascript')) {
+    return 'javascript';
+  }
+  if (normalized.includes('shell')) {
+    return 'bash';
+  }
+  return null;
+};
+
 const clampIndex = (index: number, length: number) => {
   if (length <= 0) {
     return 0;
@@ -22,6 +39,7 @@ const clampIndex = (index: number, length: number) => {
 
 export const CodeTabs = ({ samples }: CodeTabsProps) => {
   const baseId = useId();
+  const tabsRef = useRef<HTMLDivElement | null>(null);
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const [activeId, setActiveId] = useState(() => samples[0]?.id ?? '');
 
@@ -29,6 +47,44 @@ export const CodeTabs = ({ samples }: CodeTabsProps) => {
     const index = samples.findIndex((sample) => sample.id === activeId);
     return index >= 0 ? index : 0;
   }, [activeId, samples]);
+
+  useEffect(() => {
+    const root = tabsRef.current;
+    if (!root || typeof window === 'undefined') {
+      return;
+    }
+
+    let cancelled = false;
+    let attempts = 0;
+
+    const highlight = () => {
+      if (cancelled) {
+        return;
+      }
+
+      const prism = (window as any).Prism as { highlightElement?: (element: Element) => void } | undefined;
+      if (!prism?.highlightElement) {
+        attempts += 1;
+        if (attempts < 20) {
+          window.setTimeout(highlight, 60);
+        }
+        return;
+      }
+
+      const code = root.querySelector(
+        '[role="tabpanel"]:not([hidden]) pre.codeBlock code[class*="language-"]',
+      ) as Element | null;
+
+      if (code) {
+        prism.highlightElement(code);
+      }
+    };
+
+    highlight();
+    return () => {
+      cancelled = true;
+    };
+  }, [activeId]);
 
   const focusTab = (index: number) => {
     tabRefs.current[index]?.focus();
@@ -80,7 +136,7 @@ export const CodeTabs = ({ samples }: CodeTabsProps) => {
   }
 
   return (
-    <div className="tabs">
+    <div className="tabs" ref={tabsRef}>
       <div className="tabList" role="tablist" aria-label="代码示例">
         {samples.map((sample, index) => {
           const selected = index === activeIndex;
@@ -114,6 +170,8 @@ export const CodeTabs = ({ samples }: CodeTabsProps) => {
           const selected = index === activeIndex;
           const tabId = `${baseId}-tab-${sample.id}`;
           const panelId = `${baseId}-panel-${sample.id}`;
+          const prismLanguage = getPrismLanguage(sample.language);
+          const codeClassName = prismLanguage ? `language-${prismLanguage}` : undefined;
           return (
             <div
               key={sample.id}
@@ -130,7 +188,7 @@ export const CodeTabs = ({ samples }: CodeTabsProps) => {
                 <CopyButton value={sample.code} ariaLabel={`复制 ${sample.label} 代码`} />
               </div>
               <pre className="codeBlock">
-                <code>{sample.code}</code>
+                <code className={codeClassName}>{sample.code}</code>
               </pre>
             </div>
           );
@@ -139,4 +197,3 @@ export const CodeTabs = ({ samples }: CodeTabsProps) => {
     </div>
   );
 };
-
