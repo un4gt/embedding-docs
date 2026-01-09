@@ -166,6 +166,7 @@ const App = () => {
               <a href="#models">模型</a>
               <a href="#examples">示例</a>
               <a href="#kilocode">KiloCode</a>
+              <a href="#ragflow">RAGFlow</a>
               <a href="https://status-router.tumuer.me/" target="_blank" rel="noreferrer">
                 状态检测
               </a>
@@ -310,6 +311,42 @@ const App = () => {
                     height={754}
                     loading="lazy"
                     alt="KiloCode Code Index / Embeddings 设置示例：OpenAI Compatible、Base URL、API Key、Model 与 Model Dimension"
+                  />
+                </a>
+                <figcaption className="figureCaption">点击图片可查看大图</figcaption>
+              </figure>
+            </div>
+          </section>
+
+          <section className="section" id="ragflow">
+            <h2>RAGFlow：在 RAGFlow 中使用</h2>
+            <div className="card">
+              <ol className="list">
+                <li>
+                  在 RAGFlow 的模型配置中新增 Embedding 模型，Provider 选择{' '}
+                  <span className="em">OpenAI-API-Compatible</span>（或 <span className="em">OpenAI Compatible</span>）。
+                </li>
+                <li>
+                  <span className="em">基础 Url</span> 填 <code className="inlineCode">{BASE_URL}</code>；<span className="em">API-Key</span>{' '}
+                  填控制台生成的 Key。
+                </li>
+                <li>
+                  <span className="em">模型名称</span> 填上方任意模型（推荐 <code className="inlineCode">{DEFAULT_MODEL}</code>），其余参数按需填写即可。
+                </li>
+              </ol>
+            </div>
+
+            <div className="card">
+              <div className="cardTitle">参考配置截图</div>
+              <figure className="figure">
+                <a className="figureLink" href="/use_with_ragflow.png" target="_blank" rel="noreferrer">
+                  <img
+                    className="figureImage"
+                    src="/use_with_ragflow.png"
+                    width={501}
+                    height={517}
+                    loading="lazy"
+                    alt="RAGFlow 配置示例：选择 OpenAI-API-Compatible，填写模型类型、模型名称、基础 Url 与 API-Key"
                   />
                 </a>
                 <figcaption className="figureCaption">点击图片可查看大图</figcaption>
