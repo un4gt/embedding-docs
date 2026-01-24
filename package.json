@@ -4,19 +4,13 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "rsbuild build",
-    "dev": "rsbuild dev --open",
-    "preview": "rsbuild preview"
-  },
-  "dependencies": {
-    "react": "^19.2.3",
-    "react-dom": "^19.2.3"
+    "dev": "rspress dev",
+    "build": "rspress build",
+    "preview": "rspress preview"
   },
   "devDependencies": {
-    "@rsbuild/core": "^1.6.14",
-    "@rsbuild/plugin-react": "^1.4.2",
-    "@types/react": "^19.2.7",
-    "@types/react-dom": "^19.2.3",
+    "@rspress/plugin-shiki": "^1.47.0",
+    "rspress": "^1.47.0",
     "typescript": "^5.9.3"
   }
 }

@@ -13,9 +13,14 @@ Desktop.ini
 # Dist
 node_modules
 dist/
+.bun-tmp/
+.bun-install/
 
 # Profile
 .rspack-profile-*/
+
+# Rspress
+.rspress/
 
 # IDE
 .vscode/*

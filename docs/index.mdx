@@ -1,0 +1,253 @@
+---
+title: Embedding API 使用指南
+description: OpenAI 兼容的 Embeddings 使用指南：base_url、api_key、模型列表与多语言调用示例。
+sidebar: false
+---
+
+import { Tab, Tabs } from 'rspress/theme';
+
+:::tip OpenAI 兼容 · Embeddings
+只需要配置 `base_url`、从控制台生成 `api_key`、选择模型，然后调用 `/embeddings` 即可。
+:::
+
+**Base URL**
+
+```text
+https://router.tumuer.me/v1
+```
+
+注意：这里已包含 `/v1`，完整接口为 `https://router.tumuer.me/v1/embeddings`。
+
+<div id="quickstart" />
+
+## 快速开始
+
+1. 配置 `base_url`：SDK / HTTP 请求统一使用 `https://router.tumuer.me/v1`。
+2. 从控制台生成 `api_key`：建议以环境变量保存：`OPENAI_API_KEY`。
+3. 选择 `model`：从下方 “可用模型” 中选择其一；通用推荐 `Qwen/Qwen3-Embedding-4B`。
+4. 调用 `/embeddings`：发送 `input`，返回向量数组；可选 `encoding_format: "float"`。
+
+<div id="models" />
+
+## 可用模型
+
+| 模型 | 维度 | Context |
+| --- | ---: | ---: |
+| `BAAI/bge-m3` | 1024 | 8K |
+| `Qwen/Qwen3-Embedding-0.6B` | 1024 | 32K |
+| `text-embedding-004` | 768 | 20K |
+| `Qwen/Qwen3-Embedding-4B` | 2560 | 32K |
+| `embedding-001` | 768 | 20K |
+| `Pro/BAAI/bge-m3` | 1024 | 8K |
+| `Qwen/Qwen3-Embedding-8B` | 4096 | 32K |
+| `gemini-embedding-001` | 3072 | 32K |
+
+**复制用：仅模型名**
+
+<details>
+  <summary>展开复制</summary>
+
+```text
+- BAAI/bge-m3
+- Qwen/Qwen3-Embedding-0.6B
+- text-embedding-004
+- Qwen/Qwen3-Embedding-4B
+- embedding-001
+- Pro/BAAI/bge-m3
+- Qwen/Qwen3-Embedding-8B
+- gemini-embedding-001
+```
+
+**复制用：含维度/上下文**
+
+```text
+- BAAI/bge-m3｜维度 1024｜Context 8K
+- Qwen/Qwen3-Embedding-0.6B｜维度 1024｜Context 32K
+- text-embedding-004｜维度 768｜Context 20K
+- Qwen/Qwen3-Embedding-4B｜维度 2560｜Context 32K
+- embedding-001｜维度 768｜Context 20K
+- Pro/BAAI/bge-m3｜维度 1024｜Context 8K
+- Qwen/Qwen3-Embedding-8B｜维度 4096｜Context 32K
+- gemini-embedding-001｜维度 3072｜Context 32K
+```
+
+</details>
+
+<div id="examples" />
+
+## 代码示例
+
+SDK 示例只需要把 `base_url` 指向上方地址，并填入控制台生成的 `api_key`；其余调用方式与 OpenAI 官方接口一致。
+
+<Tabs>
+  <Tab label="Python（openai SDK）">
+
+```python
+from openai import OpenAI
+import os
+
+client = OpenAI(
+    base_url="https://router.tumuer.me/v1",
+    api_key=os.environ["OPENAI_API_KEY"],  # 在控制台生成
+)
+
+models = [
+    "BAAI/bge-m3",
+    "Qwen/Qwen3-Embedding-0.6B",
+    "text-embedding-004",
+    "Qwen/Qwen3-Embedding-4B",
+    "embedding-001",
+    "Pro/BAAI/bge-m3",
+    "Qwen/Qwen3-Embedding-8B",
+    "gemini-embedding-001",
+]
+
+for model in models:
+    print("current_model", model)
+    response = client.embeddings.create(
+        model=model,
+        input="这是一段需要转换成向量的文本",
+        encoding_format="float",
+    )
+
+    print(response.data[0].embedding[:30])
+    print()
+```
+
+  </Tab>
+  <Tab label="Bun（openai SDK）">
+
+```ts
+import OpenAI from "openai";
+
+const client = new OpenAI({
+  baseURL: "https://router.tumuer.me/v1",
+  apiKey: process.env.OPENAI_API_KEY, // 在控制台生成
+});
+
+const models = [
+  "BAAI/bge-m3",
+  "Qwen/Qwen3-Embedding-0.6B",
+  "text-embedding-004",
+  "Qwen/Qwen3-Embedding-4B",
+  "embedding-001",
+  "Pro/BAAI/bge-m3",
+  "Qwen/Qwen3-Embedding-8B",
+  "gemini-embedding-001",
+];
+
+for (const model of models) {
+  console.log("current_model", model);
+  const response = await client.embeddings.create({
+    model,
+    input: "这是一段需要转换成向量的文本",
+    encoding_format: "float",
+  });
+
+  console.log(response.data[0].embedding.slice(0, 30));
+  console.log("");
+}
+```
+
+  </Tab>
+  <Tab label="Python（requests）">
+
+```python
+import os
+import requests
+
+url = "https://router.tumuer.me/v1/embeddings"
+
+headers = {
+    "Authorization": f"Bearer {os.environ['OPENAI_API_KEY']}",
+    "Content-Type": "application/json",
+}
+
+payload = {
+    "model": "Qwen/Qwen3-Embedding-4B",
+    "input": "这是一段需要转换成向量的文本",
+    "encoding_format": "float",
+}
+
+response = requests.post(url, headers=headers, json=payload, timeout=60)
+response.raise_for_status()
+data = response.json()
+
+print(data["data"][0]["embedding"][:30])
+```
+
+  </Tab>
+  <Tab label="Python（httpx）">
+
+```python
+import os
+import httpx
+
+url = "https://router.tumuer.me/v1/embeddings"
+
+headers = {
+    "Authorization": f"Bearer {os.environ['OPENAI_API_KEY']}",
+    "Content-Type": "application/json",
+}
+
+payload = {
+    "model": "Qwen/Qwen3-Embedding-4B",
+    "input": "这是一段需要转换成向量的文本",
+    "encoding_format": "float",
+}
+
+with httpx.Client(timeout=60) as client:
+    response = client.post(url, headers=headers, json=payload)
+    response.raise_for_status()
+    data = response.json()
+    print(data["data"][0]["embedding"][:30])
+```
+
+  </Tab>
+  <Tab label="cURL">
+
+```bash
+curl "https://router.tumuer.me/v1/embeddings" \
+  -H "Authorization: Bearer $OPENAI_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "Qwen/Qwen3-Embedding-4B",
+    "input": "这是一段需要转换成向量的文本",
+    "encoding_format": "float"
+  }'
+```
+
+  </Tab>
+</Tabs>
+
+<div id="kilocode" />
+
+## KiloCode：用于 Code Index 服务
+
+1. 打开 KiloCode 的设置页，找到 **Code Index / Embeddings** 相关配置。
+2. Provider 选择 **OpenAI Compatible**（或自定义 OpenAI 兼容接口）。
+3. **Base URL** 填 `https://router.tumuer.me/v1`；**API Key** 填控制台生成的 Key。
+4. **Model** 选择上方任意模型（推荐 `Qwen/Qwen3-Embedding-4B`），保存后重新构建索引。
+5. 如果需要填写 **Model Dimension**，可参考上方模型参数；也可先调用一次 `/embeddings`，用返回向量的长度作为维度。
+
+![KiloCode Code Index / Embeddings 设置示例：OpenAI Compatible、Base URL、API Key、Model 与 Model Dimension](/image.png)
+
+<div id="ragflow" />
+
+## RAGFlow：在 RAGFlow 中使用
+
+1. 在 RAGFlow 的模型配置中新增 Embedding 模型，Provider 选择 **OpenAI-API-Compatible**（或 **OpenAI Compatible**）。
+2. **基础 Url** 填 `https://router.tumuer.me/v1`；**API-Key** 填控制台生成的 Key。
+3. **模型名称** 填上方任意模型（推荐 `Qwen/Qwen3-Embedding-4B`），其余参数按需填写即可。
+
+![RAGFlow 配置示例：选择 OpenAI-API-Compatible，填写模型类型、模型名称、基础 Url 与 API-Key](/use_with_ragflow.png)
+
+<div id="astrbot-kb" />
+
+## 在 Astrbot 知识库中配置并使用
+
+1. 导航至 astrbot webui 模型提供商
+2. 按下图选择 嵌入
+  ![选择 OpenAI embedding](/select_openai_embedding_for_astrbot.png)
+3. 分别填入 API Key, base_url 和模型名称
+  ![填入相关参数](/save_embedding_provider_for_astrbot.png)
