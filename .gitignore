@@ -22,6 +22,9 @@ dist/
 # Rspress
 .rspress/
 
+# Serena
+.serena/
+
 # IDE
 .vscode/*
 !.vscode/extensions.json
