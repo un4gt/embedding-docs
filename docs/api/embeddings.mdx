@@ -1,0 +1,134 @@
+---
+title: 创建嵌入请求
+description: POST /embeddings（OpenAI 兼容）。
+---
+
+import { Tab, Tabs } from 'rspress/theme';
+
+## Endpoint
+
+```text
+POST /embeddings
+```
+
+完整地址：
+
+```text
+https://router.tumuer.me/v1/embeddings
+```
+
+## 请求头
+
+| Header | 必填 | 说明 |
+| --- | --- | --- |
+| `Authorization` | 是 | `Bearer <api_key>` |
+| `Content-Type` | 是 | `application/json` |
+
+## 请求体（JSON）
+
+| 字段 | 类型 | 必填 | 说明 |
+| --- | --- | --- | --- |
+| `model` | `string` | 是 | 模型名称（见 [可用模型](/guide/models)） |
+| `input` | `string \| string[]` | 是 | 输入文本（或文本数组） |
+| `encoding_format` | `\"float\" \| \"base64\"` | 否 | 返回向量格式，默认 `float` |
+| `dimensions` | `number` | 否 | 期望输出维度（部分模型支持） |
+
+:::tip 常见用法
+批量向量化、指定 `dimensions` 等更偏“使用配方”的片段，见 [代码示例](/guide/examples)。
+:::
+
+## 返回体（JSON）
+
+| 字段 | 类型 | 说明 |
+| --- | --- | --- |
+| `object` | `\"list\"` | 固定为 `list` |
+| `model` | `string` | 实际使用的模型 |
+| `data` | `Array<{ index: number; embedding: number[] \| string }>` | 向量结果列表 |
+| `usage` | `object` | token 统计信息（不同服务字段可能略有差异） |
+
+## 请求示例
+
+<Tabs>
+  <Tab label="Python（openai SDK）">
+
+```python
+from openai import OpenAI
+import os
+
+client = OpenAI(
+    base_url="https://router.tumuer.me/v1",
+    api_key=os.environ["OPENAI_API_KEY"],
+)
+
+response = client.embeddings.create(
+    model="Qwen/Qwen3-Embedding-4B",
+    input="这是一段需要转换成向量的文本",
+    encoding_format="float",
+)
+
+print(response.data[0].embedding[:10])
+```
+
+  </Tab>
+  <Tab label="JavaScript（openai SDK）">
+
+```ts
+import OpenAI from "openai";
+
+const client = new OpenAI({
+  baseURL: "https://router.tumuer.me/v1",
+  apiKey: process.env.OPENAI_API_KEY,
+});
+
+const response = await client.embeddings.create({
+  model: "Qwen/Qwen3-Embedding-4B",
+  input: "这是一段需要转换成向量的文本",
+  encoding_format: "float",
+});
+
+console.log(response.data[0].embedding.slice(0, 10));
+```
+
+  </Tab>
+  <Tab label="Python（requests）">
+
+```python
+import os
+import requests
+
+url = "https://router.tumuer.me/v1/embeddings"
+
+headers = {
+    "Authorization": f"Bearer {os.environ['OPENAI_API_KEY']}",
+    "Content-Type": "application/json",
+}
+
+payload = {
+    "model": "Qwen/Qwen3-Embedding-4B",
+    "input": "这是一段需要转换成向量的文本",
+    "encoding_format": "float",
+}
+
+response = requests.post(url, headers=headers, json=payload, timeout=60)
+response.raise_for_status()
+data = response.json()
+
+print(data["data"][0]["embedding"][:10])
+```
+
+  </Tab>
+  <Tab label="cURL">
+
+```bash
+curl "https://router.tumuer.me/v1/embeddings" \
+  -H "Authorization: Bearer $OPENAI_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "Qwen/Qwen3-Embedding-4B",
+    "input": "这是一段需要转换成向量的文本",
+    "encoding_format": "float"
+  }'
+```
+
+  </Tab>
+</Tabs>

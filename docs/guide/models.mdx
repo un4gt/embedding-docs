@@ -1,0 +1,85 @@
+---
+title: 可用模型
+description: Embedding / Rerank 模型列表（含维度与图标）。
+---
+
+本页根据 `/v1/models` 的返回整理（模型上下线以实际接口为准）。如果你只关心接口用法与参数说明，请看：
+
+- [创建嵌入请求](/api/embeddings)
+- [创建重排序请求](/api/rerank)
+
+:::tip 图标来源
+图标来自 LobeHub Icons（https://icons.lobehub.com），通过 CDN 引用静态 SVG。
+:::
+
+## Embedding 模型（向量）
+
+| 提供方 | 模型 | 维度（默认 / 可选） | 接口类型 |
+| --- | --- | --- | --- |
+| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/openai.svg" width="16" height="16" alt="OpenAI" /> OpenAI | `text-embedding-3-small` | 默认 `1536`（支持 `dimensions` 降维） | `openai` |
+| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/openai.svg" width="16" height="16" alt="OpenAI" /> OpenAI | `openai/text-embedding-3-large` | 默认 `3072`（支持 `dimensions` 降维） | `openai` |
+| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/alibaba.svg" width="16" height="16" alt="Alibaba" /> Alibaba | `text-embedding-v1` | `1536` | `openai` |
+| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/alibaba.svg" width="16" height="16" alt="Alibaba" /> Alibaba | `text-embedding-v2` | `1536`（固定） | `openai` |
+| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/alibaba.svg" width="16" height="16" alt="Alibaba" /> Alibaba | `text-embedding-v3` | `1024`（默认），可选 `768` / `512` | `openai` |
+| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/alibaba.svg" width="16" height="16" alt="Alibaba" /> Alibaba | `text-embedding-v4` | `1024`（默认），可选 `64` / `128` / `256` / `512` / `768` / `1024` / `1536` / `2048` | `openai` |
+| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/qwen.svg" width="16" height="16" alt="Qwen" /> Qwen | `Qwen/Qwen3-Embedding-0.6B` | 默认 `1024`，可选 `64` / `128` / `256` / `512` / `768` / `1024` | `openai` |
+| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/qwen.svg" width="16" height="16" alt="Qwen" /> Qwen | `Qwen/Qwen3-Embedding-4B` | 默认 `2560`，可选 `64` / `128` / `256` / `512` / `768` / `1024` / `1536` / `2048` / `2560` | `openai` |
+| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/qwen.svg" width="16" height="16" alt="Qwen" /> Qwen | `Qwen/Qwen3-Embedding-8B` | 默认 `4096`，可选 `64` / `128` / `256` / `512` / `768` / `1024` / `1536` / `2048` / `2560` / `4096` | `openai` |
+| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/baai.svg" width="16" height="16" alt="BAAI" /> BAAI | `BAAI/bge-m3` | `1024` | `openai` |
+| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/baai.svg" width="16" height="16" alt="BAAI" /> BAAI | `Pro/BAAI/bge-m3` | `1024` | `openai` |
+| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/gemini.svg" width="16" height="16" alt="Gemini" /> Gemini | `gemini-embedding-001` | 默认 `3072`（可按需缩小输出维度） | `gemini` / `openai` |
+| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/nvidia.svg" width="16" height="16" alt="NVIDIA" /> NVIDIA | `nv-dinov2` | `1024` / `1536`（取决于 variant） | `openai` |
+
+**复制用：Embedding 模型名**
+
+<details>
+  <summary>展开复制</summary>
+
+```text
+- text-embedding-3-small
+- openai/text-embedding-3-large
+- text-embedding-v1
+- text-embedding-v2
+- text-embedding-v3
+- text-embedding-v4
+- Qwen/Qwen3-Embedding-0.6B
+- Qwen/Qwen3-Embedding-4B
+- Qwen/Qwen3-Embedding-8B
+- BAAI/bge-m3
+- Pro/BAAI/bge-m3
+- gemini-embedding-001
+- nv-dinov2
+```
+
+</details>
+
+## Rerank 模型（重排序）
+
+| 提供方 | 模型 | 输出 | 接口类型 |
+| --- | --- | --- | --- |
+| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/qwen.svg" width="16" height="16" alt="Qwen" /> Qwen | `Qwen/Qwen3-Reranker-4B` | `relevance_score` | `openai` |
+| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/qwen.svg" width="16" height="16" alt="Qwen" /> Qwen | `Qwen/Qwen3-Reranker-8B` | `relevance_score` | `openai` |
+| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/baai.svg" width="16" height="16" alt="BAAI" /> BAAI | `Pro/BAAI/bge-reranker-v2-m3` | `relevance_score` | `openai` |
+
+**复制用：Rerank 模型名**
+
+<details>
+  <summary>展开复制</summary>
+
+```text
+- Qwen/Qwen3-Reranker-4B
+- Qwen/Qwen3-Reranker-8B
+- Pro/BAAI/bge-reranker-v2-m3
+```
+
+</details>
+
+## 其他（非 Embedding / Rerank）
+
+以下模型可能会出现在 `/v1/models` 的返回中，但通常不用于 `/embeddings` 或 `/rerank`：
+
+| 提供方 | 模型 | 类型 | 接口类型 |
+| --- | --- | --- | --- |
+| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/openai.svg" width="16" height="16" alt="OpenAI" /> OpenAI | `openai/gpt-oss-20b:free` | LLM | `openai` |
+| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/openai.svg" width="16" height="16" alt="OpenAI" /> OpenAI | `openai/gpt-oss-120b:free` | LLM | `openai` |
+

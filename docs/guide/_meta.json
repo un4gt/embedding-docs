@@ -1,0 +1,7 @@
+[
+  { "type": "file", "name": "index", "label": "概览" },
+  { "type": "file", "name": "quickstart", "label": "快速开始" },
+  { "type": "file", "name": "models", "label": "可用模型" },
+  { "type": "file", "name": "examples", "label": "代码示例" }
+]
+

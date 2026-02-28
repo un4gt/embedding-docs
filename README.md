@@ -1,6 +1,6 @@
 # embedding-docs
 
-纯静态的 Embedding API 使用指南站点。
+纯静态的 **Embedding & Reranker** 使用指南站点（OpenAI 兼容：`/embeddings` 与 `/rerank`）。
 
 已迁移至 Rspress，文档入口在 `docs/index.mdx`（可写 Markdown/MDX）。
 

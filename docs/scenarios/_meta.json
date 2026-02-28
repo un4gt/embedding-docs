@@ -1,0 +1,7 @@
+[
+  { "type": "file", "name": "index", "label": "概览" },
+  { "type": "file", "name": "kilocode", "label": "KiloCode" },
+  { "type": "file", "name": "ragflow", "label": "RAGFlow" },
+  { "type": "file", "name": "astrbot-kb", "label": "AstrBot 知识库" }
+]
+

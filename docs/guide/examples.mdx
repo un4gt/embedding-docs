@@ -1,0 +1,205 @@
+---
+title: 代码示例
+description: SDK 初始化与常见用法速览（完整参数与多语言示例见 API 手册）。
+---
+
+import { Tab, Tabs } from 'rspress/theme';
+
+本页放「怎么用」的常见片段（初始化、批量、维度、Rerank 的调用方式等）。每个接口的参数/返回结构与完整多语言示例请看：
+
+- [创建嵌入请求](/api/embeddings)
+- [创建重排序请求](/api/rerank)
+
+## SDK 初始化（OpenAI Compatible）
+
+SDK 调用与 OpenAI 官方一致，只需要把 `base_url`（或 `baseURL`）改为 `https://router.tumuer.me/v1`，并填入控制台生成的 `api_key`。
+
+<Tabs>
+  <Tab label="Python">
+
+```python
+from openai import OpenAI
+import os
+
+client = OpenAI(
+    base_url="https://router.tumuer.me/v1",
+    api_key=os.environ["OPENAI_API_KEY"],  # 在控制台生成
+)
+```
+
+  </Tab>
+  <Tab label="JavaScript">
+
+```ts
+import OpenAI from "openai";
+
+const client = new OpenAI({
+  baseURL: "https://router.tumuer.me/v1",
+  apiKey: process.env.OPENAI_API_KEY, // 在控制台生成
+});
+```
+
+  </Tab>
+</Tabs>
+
+## Embeddings：常见用法
+
+### 批量向量化（一次请求多条 input）
+
+<Tabs>
+  <Tab label="Python（openai SDK）">
+
+```python
+from openai import OpenAI
+import os
+
+client = OpenAI(
+    base_url="https://router.tumuer.me/v1",
+    api_key=os.environ["OPENAI_API_KEY"],
+)
+
+response = client.embeddings.create(
+    model="Qwen/Qwen3-Embedding-4B",
+    input=["第一段文本", "第二段文本"],
+    encoding_format="float",
+)
+
+print("count:", len(response.data))
+print("dim:", len(response.data[0].embedding))
+```
+
+  </Tab>
+  <Tab label="JavaScript（openai SDK）">
+
+```ts
+import OpenAI from "openai";
+
+const client = new OpenAI({
+  baseURL: "https://router.tumuer.me/v1",
+  apiKey: process.env.OPENAI_API_KEY,
+});
+
+const response = await client.embeddings.create({
+  model: "Qwen/Qwen3-Embedding-4B",
+  input: ["第一段文本", "第二段文本"],
+  encoding_format: "float",
+});
+
+console.log("count:", response.data.length);
+console.log("dim:", response.data[0].embedding.length);
+```
+
+  </Tab>
+</Tabs>
+
+### 指定输出维度（仅部分模型支持）
+
+<Tabs>
+  <Tab label="Python（openai SDK）">
+
+```python
+from openai import OpenAI
+import os
+
+client = OpenAI(
+    base_url="https://router.tumuer.me/v1",
+    api_key=os.environ["OPENAI_API_KEY"],
+)
+
+response = client.embeddings.create(
+    model="Qwen/Qwen3-Embedding-4B",
+    input="这是一段需要转换成向量的文本",
+    encoding_format="float",
+    dimensions=1024,
+)
+
+print("dim:", len(response.data[0].embedding))
+```
+
+  </Tab>
+  <Tab label="JavaScript（openai SDK）">
+
+```ts
+import OpenAI from "openai";
+
+const client = new OpenAI({
+  baseURL: "https://router.tumuer.me/v1",
+  apiKey: process.env.OPENAI_API_KEY,
+});
+
+const response = await client.embeddings.create({
+  model: "Qwen/Qwen3-Embedding-4B",
+  input: "这是一段需要转换成向量的文本",
+  encoding_format: "float",
+  dimensions: 1024,
+});
+
+console.log("dim:", response.data[0].embedding.length);
+```
+
+  </Tab>
+</Tabs>
+
+更多字段说明与多语言示例见 [创建嵌入请求](/api/embeddings)。
+
+## Rerank：常见用法
+
+`/rerank` 不是 OpenAI 标准端点；如果你仍想复用 OpenAI SDK 的鉴权与 baseURL 配置，可以用 SDK 的“自定义请求”能力直接 `POST /rerank`（完整示例见 [创建重排序请求](/api/rerank)）。
+
+<Tabs>
+  <Tab label="Python（openai SDK，自定义请求）">
+
+```python
+from openai import OpenAI
+import httpx
+import os
+
+client = OpenAI(
+    base_url="https://router.tumuer.me/v1",
+    api_key=os.environ["OPENAI_API_KEY"],
+)
+
+resp = client.post(
+    "/rerank",
+    cast_to=httpx.Response,
+    body={
+        "model": "Pro/BAAI/bge-reranker-v2-m3",
+        "query": "Apple",
+        "documents": ["apple", "banana", "fruit", "vegetable"],
+        "top_n": 10,
+        "return_documents": False,
+    },
+)
+
+resp.raise_for_status()
+print(resp.json())
+```
+
+  </Tab>
+  <Tab label="JavaScript（openai SDK，自定义请求）">
+
+```ts
+import OpenAI from "openai";
+
+const client = new OpenAI({
+  baseURL: "https://router.tumuer.me/v1",
+  apiKey: process.env.OPENAI_API_KEY,
+});
+
+const result = await client.post("/rerank", {
+  body: {
+    model: "Pro/BAAI/bge-reranker-v2-m3",
+    query: "Apple",
+    documents: ["apple", "banana", "fruit", "vegetable"],
+    top_n: 10,
+    return_documents: false,
+  },
+});
+
+console.log(result);
+```
+
+  </Tab>
+</Tabs>
+
+更多字段说明与多语言示例见 [创建重排序请求](/api/rerank)。

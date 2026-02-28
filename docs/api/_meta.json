@@ -1,0 +1,6 @@
+[
+  { "type": "file", "name": "index", "label": "概览" },
+  { "type": "file", "name": "embeddings", "label": "创建嵌入请求" },
+  { "type": "file", "name": "rerank", "label": "创建重排序请求" }
+]
+
