@@ -1,6 +1,6 @@
 ---
 title: 可用模型
-description: Embedding / Rerank 模型列表（含维度与图标）。
+description: Embedding / Rerank 模型列表（含维度、上下文与图标）。
 ---
 
 本页根据 `/v1/models` 的返回整理（模型上下线以实际接口为准）。如果你只关心接口用法与参数说明，请看：
@@ -14,21 +14,29 @@ description: Embedding / Rerank 模型列表（含维度与图标）。
 
 ## Embedding 模型（向量）
 
-| 提供方 | 模型 | 维度（默认 / 可选） | 接口类型 |
-| --- | --- | --- | --- |
-| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/openai.svg" width="16" height="16" alt="OpenAI" /> OpenAI | `text-embedding-3-small` | 默认 `1536`（支持 `dimensions` 降维） | `openai` |
-| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/openai.svg" width="16" height="16" alt="OpenAI" /> OpenAI | `openai/text-embedding-3-large` | 默认 `3072`（支持 `dimensions` 降维） | `openai` |
-| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/alibaba.svg" width="16" height="16" alt="Alibaba" /> Alibaba | `text-embedding-v1` | `1536` | `openai` |
-| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/alibaba.svg" width="16" height="16" alt="Alibaba" /> Alibaba | `text-embedding-v2` | `1536`（固定） | `openai` |
-| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/alibaba.svg" width="16" height="16" alt="Alibaba" /> Alibaba | `text-embedding-v3` | `1024`（默认），可选 `768` / `512` | `openai` |
-| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/alibaba.svg" width="16" height="16" alt="Alibaba" /> Alibaba | `text-embedding-v4` | `1024`（默认），可选 `64` / `128` / `256` / `512` / `768` / `1024` / `1536` / `2048` | `openai` |
-| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/qwen.svg" width="16" height="16" alt="Qwen" /> Qwen | `Qwen/Qwen3-Embedding-0.6B` | 默认 `1024`，可选 `64` / `128` / `256` / `512` / `768` / `1024` | `openai` |
-| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/qwen.svg" width="16" height="16" alt="Qwen" /> Qwen | `Qwen/Qwen3-Embedding-4B` | 默认 `2560`，可选 `64` / `128` / `256` / `512` / `768` / `1024` / `1536` / `2048` / `2560` | `openai` |
-| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/qwen.svg" width="16" height="16" alt="Qwen" /> Qwen | `Qwen/Qwen3-Embedding-8B` | 默认 `4096`，可选 `64` / `128` / `256` / `512` / `768` / `1024` / `1536` / `2048` / `2560` / `4096` | `openai` |
-| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/baai.svg" width="16" height="16" alt="BAAI" /> BAAI | `BAAI/bge-m3` | `1024` | `openai` |
-| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/baai.svg" width="16" height="16" alt="BAAI" /> BAAI | `Pro/BAAI/bge-m3` | `1024` | `openai` |
-| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/gemini.svg" width="16" height="16" alt="Gemini" /> Gemini | `gemini-embedding-001` | 默认 `3072`（可按需缩小输出维度） | `gemini` / `openai` |
-| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/nvidia.svg" width="16" height="16" alt="NVIDIA" /> NVIDIA | `nv-dinov2` | `1024` / `1536`（取决于 variant） | `openai` |
+| 提供方 | 模型 | 维度（默认 / 可选） | 上下文长度 | 接口类型 |
+| --- | --- | --- | --- | --- |
+| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/openai.svg" width="16" height="16" alt="OpenAI" /> OpenAI | `openai/text-embedding-3-small` | 默认 `1536`（支持 `dimensions` 降维） | `8.2K` | `openai` |
+| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/openai.svg" width="16" height="16" alt="OpenAI" /> OpenAI | `openai/text-embedding-3-large` | 默认 `3072`（支持 `dimensions` 降维） | `8.2K` | `openai` |
+| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/qwen.svg" width="16" height="16" alt="Qwen" /> Qwen | `Qwen/Qwen3-Embedding-0.6B` | 默认 `1024`，可选 `32` / `64` / `128` / `256` / `512` / `768` / `1024` | `32K` | `openai` |
+| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/qwen.svg" width="16" height="16" alt="Qwen" /> Qwen | `Qwen/Qwen3-Embedding-4B` | 默认 `2560`，可选 `32` / `64` / `128` / `256` / `512` / `768` / `1024` / `1536` / `2048` / `2560` | `32K` | `openai` |
+| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/qwen.svg" width="16" height="16" alt="Qwen" /> Qwen | `Qwen/Qwen3-Embedding-8B` | 默认 `4096`，可选 `32` / `64` / `128` / `256` / `512` / `768` / `1024` / `1536` / `2048` / `2560` / `4096` | `32K` | `openai` |
+| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/baai.svg" width="16" height="16" alt="BAAI" /> BAAI | `BAAI/bge-m3` | `1024` | `8K` | `openai` |
+| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/baai.svg" width="16" height="16" alt="BAAI" /> BAAI | `Pro/BAAI/bge-m3` | `1024` | `8K` | `openai` |
+| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/baai.svg" width="16" height="16" alt="BAAI" /> BAAI | `baai/bge-large-en-v1.5` | `1024` | `0.5K` | `openai` |
+| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/baai.svg" width="16" height="16" alt="BAAI" /> BAAI | `baai/bge-base-en-v1.5` | `768` | `0.5K` | `openai` |
+| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/baai.svg" width="16" height="16" alt="BAAI" /> BAAI | `BAAI/bge-small-en-v1.5` | `384` | `0.5K` | `openai` |
+| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/gemini.svg" width="16" height="16" alt="Gemini" /> Gemini | `gemini-embedding-001` | 默认 `3072`（可按需缩小输出维度） | `20K` | `gemini` / `openai` |
+| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/jina.svg" width="16" height="16" alt="Jina" /> Jina | `jina-embeddings-v4` | `2048`（支持 `128` / `256` / `512` / `1024` / `2048`） | `32K` | `openai` |
+| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/jina.svg" width="16" height="16" alt="Jina" /> Jina | `jina-embeddings-v5-text-nano` | `768`（支持 `32` / `64` / `128` / `256` / `512` / `768`） | `8K` | `openai` |
+| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/jina.svg" width="16" height="16" alt="Jina" /> Jina | `jina-embeddings-v5-text-small` | `1024`（支持 `32` / `64` / `128` / `256` / `512` / `1024`） | `32K` | `openai` |
+| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/nvidia.svg" width="16" height="16" alt="NVIDIA" /> NVIDIA | `nv-dinov2` | `1024` / `1536`（image-to-embedding；单图最大 `200K`） | - | `openai` |
+| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/voyage.svg" width="16" height="16" alt="Voyage" /> Voyage | `voyage-4-large` | `1024`（默认），可选 `256` / `512` / `2048` | `32K` | `openai` |
+| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/voyage.svg" width="16" height="16" alt="Voyage" /> Voyage | `voyage-4` | `1024`（默认），可选 `256` / `512` / `2048` | `32K` | `openai` |
+| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/voyage.svg" width="16" height="16" alt="Voyage" /> Voyage | `voyage-4-lite` | `1024`（默认），可选 `256` / `512` / `2048` | `32K` | `openai` |
+| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/voyage.svg" width="16" height="16" alt="Voyage" /> Voyage | `voyage-3-lite` | `512` | `32K` | `openai` |
+| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/voyage.svg" width="16" height="16" alt="Voyage" /> Voyage | `voyage-code-2` | `1536` | `16K` | `openai` |
+| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/voyage.svg" width="16" height="16" alt="Voyage" /> Voyage | `voyage-code-3` | `1024`（默认），可选 `256` / `512` / `2048` | `32K` | `openai` |
 
 **复制用：Embedding 模型名**
 
@@ -36,30 +44,40 @@ description: Embedding / Rerank 模型列表（含维度与图标）。
   <summary>展开复制</summary>
 
 ```text
-- text-embedding-3-small
+- openai/text-embedding-3-small
 - openai/text-embedding-3-large
-- text-embedding-v1
-- text-embedding-v2
-- text-embedding-v3
-- text-embedding-v4
 - Qwen/Qwen3-Embedding-0.6B
 - Qwen/Qwen3-Embedding-4B
 - Qwen/Qwen3-Embedding-8B
 - BAAI/bge-m3
 - Pro/BAAI/bge-m3
+- baai/bge-large-en-v1.5
+- baai/bge-base-en-v1.5
+- BAAI/bge-small-en-v1.5
 - gemini-embedding-001
+- jina-embeddings-v4
+- jina-embeddings-v5-text-nano
+- jina-embeddings-v5-text-small
 - nv-dinov2
+- voyage-4-large
+- voyage-4
+- voyage-4-lite
+- voyage-3-lite
+- voyage-code-2
+- voyage-code-3
 ```
 
 </details>
 
 ## Rerank 模型（重排序）
 
-| 提供方 | 模型 | 输出 | 接口类型 |
-| --- | --- | --- | --- |
-| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/qwen.svg" width="16" height="16" alt="Qwen" /> Qwen | `Qwen/Qwen3-Reranker-4B` | `relevance_score` | `openai` |
-| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/qwen.svg" width="16" height="16" alt="Qwen" /> Qwen | `Qwen/Qwen3-Reranker-8B` | `relevance_score` | `openai` |
-| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/baai.svg" width="16" height="16" alt="BAAI" /> BAAI | `Pro/BAAI/bge-reranker-v2-m3` | `relevance_score` | `openai` |
+| 提供方 | 模型 | 输出 | 上下文长度 | 接口类型 |
+| --- | --- | --- | --- | --- |
+| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/qwen.svg" width="16" height="16" alt="Qwen" /> Qwen | `Qwen/Qwen3-Reranker-0.6B` | `relevance_score` | `32K` | `openai` |
+| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/qwen.svg" width="16" height="16" alt="Qwen" /> Qwen | `Qwen/Qwen3-Reranker-4B` | `relevance_score` | `32K` | `openai` |
+| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/qwen.svg" width="16" height="16" alt="Qwen" /> Qwen | `Qwen/Qwen3-Reranker-8B` | `relevance_score` | `32K` | `openai` |
+| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/baai.svg" width="16" height="16" alt="BAAI" /> BAAI | `Pro/BAAI/bge-reranker-v2-m3` | `relevance_score` | `8K` | `openai` |
+| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/jina.svg" width="16" height="16" alt="Jina" /> Jina | `jina-reranker-v3` | `relevance_score`（`256` 维） | `131K` | `openai` |
 
 **复制用：Rerank 模型名**
 
@@ -67,9 +85,11 @@ description: Embedding / Rerank 模型列表（含维度与图标）。
   <summary>展开复制</summary>
 
 ```text
+- Qwen/Qwen3-Reranker-0.6B
 - Qwen/Qwen3-Reranker-4B
 - Qwen/Qwen3-Reranker-8B
 - Pro/BAAI/bge-reranker-v2-m3
+- jina-reranker-v3
 ```
 
 </details>
@@ -82,4 +102,3 @@ description: Embedding / Rerank 模型列表（含维度与图标）。
 | --- | --- | --- | --- |
 | <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/openai.svg" width="16" height="16" alt="OpenAI" /> OpenAI | `openai/gpt-oss-20b:free` | LLM | `openai` |
 | <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/openai.svg" width="16" height="16" alt="OpenAI" /> OpenAI | `openai/gpt-oss-120b:free` | LLM | `openai` |
-
