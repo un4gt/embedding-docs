@@ -1,0 +1,23 @@
+---
+title: Gemini 文本嵌入
+description: embedContent 与 batchEmbedContents 的兼容入口。
+---
+
+```text
+POST https://emrank.tech/v1beta/models/{完整模型ID}:embedContent
+POST https://emrank.tech/v1beta/models/{完整模型ID}:batchEmbedContents
+```
+
+这两个入口位于 `/v1beta`，不要接在 OpenAI Base URL 的 `/v1` 后面。必须使用本站 API 令牌，通过 `Authorization: Bearer <API Key>` 或 `X-Goog-Api-Key` 传入。模型仍遵循[完整模型 ID 规则](/guide/model-ids)。
+
+单条请求的 `content.parts` 当前接受文本，多段文本按换行连接。`taskType`、`outputDimensionality` 和 `title` 需要所选模型及适配器支持；`title` 仅与 `RETRIEVAL_DOCUMENT` 一起使用。
+
+```json
+{
+  "content": {"parts": [{"text": "需要生成向量的文本"}]}
+}
+```
+
+批量请求使用非空 `requests` 数组，每项包含单条请求字段，默认最多 128 项。每项 model 若提供，必须与路径模型一致，可带 `models/` 前缀。结果按输入顺序返回 `embeddings`；单条结果返回 `embedding.values`。
+
+在 OpenAI 兼容 `/v1/embeddings` 中，优先使用标准 `input` / `dimensions`。旧站 `content`、`embedContentConfig` 不会被无条件透传，未声明的扩展字段可能被拒绝。

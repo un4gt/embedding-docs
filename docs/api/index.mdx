@@ -1,12 +1,12 @@
 ---
 title: API 手册
-description: Embeddings / Rerank 接口说明、参数与返回结构。
+description: Embeddings / Rerank / Decisions 接口说明、参数与返回结构。
 ---
 
 ## Base URL
 
 ```text
-https://router.tumuer.me/v1
+https://emrank.tech/v1
 ```
 
 ## 鉴权
@@ -22,3 +22,8 @@ Authorization: Bearer <api_key>
 - [POST /embeddings：创建嵌入请求](/api/embeddings)
 - [POST /rerank：创建重排序请求](/api/rerank)
 
+
+- [POST /decisions：创建决策请求](/api/decisions)
+- [Gemini 文本嵌入](/api/gemini)
+
+`POST /v1/decision` 是决策接口的单数别名；`GET /v1/models` 返回可路由的公开模型，也需要 API 令牌。

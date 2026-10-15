@@ -4,7 +4,7 @@ description: 用最少的配置调用 /embeddings 与 /rerank。
 ---
 
 :::tip OpenAI 兼容
-SDK / HTTP 调用方式与 OpenAI 官方接口一致，只需替换 `base_url` 与 `api_key`。
+向量嵌入兼容 OpenAI SDK；重排序使用 `/v1/rerank`，决策使用独立 System One 协议。
 :::
 
 ## 1) 配置 Base URL
@@ -12,27 +12,27 @@ SDK / HTTP 调用方式与 OpenAI 官方接口一致，只需替换 `base_url` �
 统一使用：
 
 ```text
-https://router.tumuer.me/v1
+https://emrank.tech/v1
 ```
 
-注意：这里已包含 `/v1`，因此 `POST /embeddings` 的完整地址为 `https://router.tumuer.me/v1/embeddings`。
+注意：这里已包含 `/v1`，因此 `POST /embeddings` 的完整地址为 `https://emrank.tech/v1/embeddings`。
 
 ## 2) 获取并保存 API Key
 
-从控制台生成 `api_key`，建议保存为环境变量：`OPENAI_API_KEY`。
+从本站控制台“令牌管理”生成 API 令牌，建议保存为环境变量：`OPENAI_API_KEY`。
 
 ## 3) 选择模型
 
-从 [可用模型](/guide/models) 中选择其一；通用推荐 `Qwen/Qwen3-Embedding-4B`。
+从[模型广场](https://emrank.tech/models)复制一个可用向量模型的完整 ID。以下使用 `Qwen/Qwen3-Embedding-8B` 示例，请先确认当前可用状态。
 
 ## 4) 发送一次 Embeddings 请求
 
 ```bash
-curl "https://router.tumuer.me/v1/embeddings" \
+curl "https://emrank.tech/v1/embeddings" \
   -H "Authorization: Bearer $OPENAI_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
-    "model": "Qwen/Qwen3-Embedding-4B",
+    "model": "Qwen/Qwen3-Embedding-8B",
     "input": "这是一段需要转换成向量的文本",
     "encoding_format": "float"
   }'
@@ -43,3 +43,7 @@ curl "https://router.tumuer.me/v1/embeddings" \
 - 复制可运行的多语言示例：见 [代码示例](/guide/examples)
 - 查看字段解释与响应结构：见 [创建嵌入请求](/api/embeddings)
 
+
+- [调用决策接口](/api/decisions)
+- [计费与额度](/guide/billing)
+- [完整模型 ID 规则](/guide/model-ids)

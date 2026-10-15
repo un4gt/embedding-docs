@@ -1,126 +1,33 @@
 ---
 title: 可用模型
-description: Embedding / Rerank 模型列表（含维度、上下文与图标）。
+description: 从实时模型广场与鉴权模型列表获取完整公开模型 ID。
 ---
 
-本页根据 `/v1/models` 的返回整理（模型上下线以实际接口为准）。如果你只关心接口用法与参数说明，请看：
+## 查看实时目录
 
-- [创建嵌入请求](/api/embeddings)
-- [创建重排序请求](/api/rerank)
+打开[EMRank 模型广场](https://emrank.tech/models)，查看当前公开模型 ID、类型、可用状态、输入倍率，以及已知的上下文和发布日期。目录可匿名浏览；目录中存在但标记不可用的模型不能用于推理。
 
-:::tip 图标来源
-图标来自 LobeHub Icons（https://icons.lobehub.com），通过 CDN 引用静态 SVG。
-:::
+文档不维护第二份固定模型清单，以免渠道和倍率调整后过期。需要自动获取可路由模型时：
 
-## Embedding 模型（向量）
-
-| 提供方 | 模型 | 维度（默认 / 可选） | 上下文长度 | 接口类型 |
-| --- | --- | --- | --- | --- |
-| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/openai.svg" width="16" height="16" alt="OpenAI" /> OpenAI | `openai/text-embedding-3-small` | 默认 `1536`（支持 `dimensions` 降维） | `8.2K` | `openai` |
-| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/openai.svg" width="16" height="16" alt="OpenAI" /> OpenAI | `openai/text-embedding-3-large` | 默认 `3072`（支持 `dimensions` 降维） | `8.2K` | `openai` |
-| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/qwen.svg" width="16" height="16" alt="Qwen" /> Qwen | `Qwen/Qwen3-Embedding-0.6B` | 默认 `1024`，可选 `32` / `64` / `128` / `256` / `512` / `768` / `1024` | `32K` | `openai` |
-| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/qwen.svg" width="16" height="16" alt="Qwen" /> Qwen | `Qwen/Qwen3-Embedding-4B` | 默认 `2560`，可选 `32` / `64` / `128` / `256` / `512` / `768` / `1024` / `1536` / `2048` / `2560` | `32K` | `openai` |
-| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/qwen.svg" width="16" height="16" alt="Qwen" /> Qwen | `Qwen/Qwen3-Embedding-8B` | 默认 `4096`，可选 `32` / `64` / `128` / `256` / `512` / `768` / `1024` / `1536` / `2048` / `2560` / `4096` | `32K` | `openai` |
-| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/baai.svg" width="16" height="16" alt="BAAI" /> BAAI | `BAAI/bge-m3` | `1024` | `8K` | `openai` |
-| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/baai.svg" width="16" height="16" alt="BAAI" /> BAAI | `Pro/BAAI/bge-m3` | `1024` | `8K` | `openai` |
-| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/baai.svg" width="16" height="16" alt="BAAI" /> BAAI | `baai/bge-large-en-v1.5` | `1024` | `0.5K` | `openai` |
-| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/baai.svg" width="16" height="16" alt="BAAI" /> BAAI | `baai/bge-base-en-v1.5` | `768` | `0.5K` | `openai` |
-| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/baai.svg" width="16" height="16" alt="BAAI" /> BAAI | `BAAI/bge-small-en-v1.5` | `384` | `0.5K` | `openai` |
-| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/gemini.svg" width="16" height="16" alt="Gemini" /> Gemini | `gemini-embedding-001` | 默认 `3072`（可按需缩小输出维度） | `20K` | `gemini` / `openai` |
-| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/jina.svg" width="16" height="16" alt="Jina" /> Jina | `jina-embeddings-v4` | `2048`（支持 `128` / `256` / `512` / `1024` / `2048`） | `32K` | `openai` |
-| Moark | `jina-clip-v1` | `768`（多模态 embedding） | - | `openai` |
-| Moark | `jina-clip-v2` | `1024`（多模态 embedding） | - | `openai` |
-| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/jina.svg" width="16" height="16" alt="Jina" /> Jina | `jina-embeddings-v5-text-nano` | `768`（支持 `32` / `64` / `128` / `256` / `512` / `768`） | `8K` | `openai` |
-| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/jina.svg" width="16" height="16" alt="Jina" /> Jina | `jina-embeddings-v5-text-small` | `1024`（支持 `32` / `64` / `128` / `256` / `512` / `1024`） | `32K` | `openai` |
-| Moark | `nomic-embed-code` | `768`（代码向量） | - | `openai` |
-| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/nvidia.svg" width="16" height="16" alt="NVIDIA" /> NVIDIA | `nvidia/nv-dinov2` | `1024` / `1536`（image-to-embedding；单图最大 `200K`） | - | `openai` |
-| Moark | `Qwen3-VL-Embedding-2B` | `1536`（多模态 embedding） | - | `openai` |
-| Moark | `Qwen3-VL-Embedding-8B` | `4096`（多模态 embedding） | - | `openai` |
-| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/voyage.svg" width="16" height="16" alt="Voyage" /> Voyage | `voyage-4-large` | `1024`（默认），可选 `256` / `512` / `2048` | `32K` | `openai` |
-| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/voyage.svg" width="16" height="16" alt="Voyage" /> Voyage | `voyage-4` | `1024`（默认），可选 `256` / `512` / `2048` | `32K` | `openai` |
-| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/voyage.svg" width="16" height="16" alt="Voyage" /> Voyage | `voyage-4-lite` | `1024`（默认），可选 `256` / `512` / `2048` | `32K` | `openai` |
-| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/voyage.svg" width="16" height="16" alt="Voyage" /> Voyage | `voyage-3-lite` | `512` | `32K` | `openai` |
-| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/voyage.svg" width="16" height="16" alt="Voyage" /> Voyage | `voyage-code-2` | `1536` | `16K` | `openai` |
-| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/voyage.svg" width="16" height="16" alt="Voyage" /> Voyage | `voyage-code-3` | `1024`（默认），可选 `256` / `512` / `2048` | `32K` | `openai` |
-
-**复制用：Embedding 模型名**
-
-<details>
-  <summary>展开复制</summary>
-
-```text
-- openai/text-embedding-3-small
-- openai/text-embedding-3-large
-- Qwen/Qwen3-Embedding-0.6B
-- Qwen/Qwen3-Embedding-4B
-- Qwen/Qwen3-Embedding-8B
-- BAAI/bge-m3
-- Pro/BAAI/bge-m3
-- baai/bge-large-en-v1.5
-- baai/bge-base-en-v1.5
-- BAAI/bge-small-en-v1.5
-- gemini-embedding-001
-- jina-embeddings-v4
-- jina-clip-v1
-- jina-clip-v2
-- jina-embeddings-v5-text-nano
-- jina-embeddings-v5-text-small
-- nomic-embed-code
-- nvidia/nv-dinov2
-- Qwen3-VL-Embedding-2B
-- Qwen3-VL-Embedding-8B
-- voyage-4-large
-- voyage-4
-- voyage-4-lite
-- voyage-3-lite
-- voyage-code-2
-- voyage-code-3
+```bash
+curl https://emrank.tech/v1/models \
+  -H "Authorization: Bearer $OPENAI_API_KEY"
 ```
 
-</details>
+该接口必须携带本站推理 API 令牌。使用响应 `data[].id` 的完整值，不要截取最后一段名称。列表反映启用路由，不保证某个上游始终健康或当前密钥配额充足。
 
-## Rerank 模型（重排序）
+## 选择模型类型
 
-| 提供方 | 模型 | 输出 | 上下文长度 | 接口类型 |
-| --- | --- | --- | --- | --- |
-| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/qwen.svg" width="16" height="16" alt="Qwen" /> Qwen | `Qwen/Qwen3-Reranker-0.6B` | `relevance_score` | `32K` | `openai` |
-| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/qwen.svg" width="16" height="16" alt="Qwen" /> Qwen | `Qwen/Qwen3-Reranker-4B` | `relevance_score` | `32K` | `openai` |
-| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/qwen.svg" width="16" height="16" alt="Qwen" /> Qwen | `Qwen/Qwen3-Reranker-8B` | `relevance_score` | `32K` | `openai` |
-| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/baai.svg" width="16" height="16" alt="BAAI" /> BAAI | `Pro/BAAI/bge-reranker-v2-m3` | `relevance_score` | `8K` | `openai` |
-| Cohere | `cohere/rerank-4-fast` | `relevance_score` | - | `openai` |
-| Cohere | `cohere/rerank-4-pro` | `relevance_score` | - | `openai` |
-| Cohere | `cohere/rerank-v3.5` | `relevance_score` | - | `openai` |
-| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/jina.svg" width="16" height="16" alt="Jina" /> Jina | `jina-reranker-v3` | `relevance_score`（`256` 维） | `131K` | `openai` |
-| Moark | `jina-reranker-m0` | `relevance_score`（多模态） | - | `rerank-multimodal` |
-| Moark | `Qwen3-VL-Reranker-2B` | `relevance_score`（多模态） | - | `rerank-multimodal` |
-| Moark | `Qwen3-VL-Reranker-8B` | `relevance_score`（多模态） | - | `rerank-multimodal` |
+| 类型 | 入口 | 用途 |
+| --- | --- | --- |
+| 向量嵌入 | `/v1/embeddings` | 文本向量、语义检索与知识库 |
+| 重排序 | `/v1/rerank` | 对召回文档进行相关性排序 |
+| 决策 | `/v1/decisions`，别名 `/v1/decision` | 判断、分类与评分 |
 
-**复制用：Rerank 模型名**
+文档中的示例 ID 需要结合当前目录确认，不能据此推断所有模型都已启用。平台默认命名不代表所有公开 ID 都有相同前缀，详见[完整模型 ID 规则](/guide/model-ids)。
 
-<details>
-  <summary>展开复制</summary>
+## 维度与索引
 
-```text
-- Qwen/Qwen3-Reranker-0.6B
-- Qwen/Qwen3-Reranker-4B
-- Qwen/Qwen3-Reranker-8B
-- Pro/BAAI/bge-reranker-v2-m3
-- cohere/rerank-4-fast
-- cohere/rerank-4-pro
-- cohere/rerank-v3.5
-- jina-reranker-v3
-- jina-reranker-m0
-- Qwen3-VL-Reranker-2B
-- Qwen3-VL-Reranker-8B
-```
+先发送一次向量请求并确认实际向量长度，再创建索引；`dimensions` 需模型和适配器支持。写入文档与查询时应使用相同模型和维度。更换模型或维度后应重新生成文档向量，不能混用不同模型的向量。
 
-</details>
-
-## 其他（非 Embedding / Rerank）
-
-以下模型可能会出现在 `/v1/models` 的返回中，但通常不用于 `/embeddings` 或 `/rerank`：
-
-| 提供方 | 模型 | 类型 | 接口类型 |
-| --- | --- | --- | --- |
-| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/openai.svg" width="16" height="16" alt="OpenAI" /> OpenAI | `openai/gpt-oss-20b:free` | LLM | `openai` |
-| <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/openai.svg" width="16" height="16" alt="OpenAI" /> OpenAI | `openai/gpt-oss-120b:free` | LLM | `openai` |
+模型可用性查看主站目录，运行状态参考[状态检测](https://status.emrank.tech/)，费用规则见[计费与额度](/guide/billing)。

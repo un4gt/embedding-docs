@@ -1,39 +1,45 @@
 ---
 pageType: home
-title: Embedding & Reranker
-description: OpenAI 兼容的 Embeddings / Rerank 使用指南：base_url、api_key、模型列表与多语言调用示例。
-
+title: EMRank 文档
+description: 向量嵌入、重排序、结构化决策与计费使用指南。
 hero:
-  name: Embedding & Reranker
-  text: 使用指南
-  tagline: OpenAI 兼容：配置 base_url / api_key，快速接入 Embeddings 与 Rerank
+  name: EMRank
+  text: 使用文档
+  tagline: https://emrank.tech/v1 · 向量嵌入、重排序与结构化决策
   actions:
     - theme: brand
       text: 快速开始
       link: /guide/quickstart
     - theme: alt
       text: API 手册
-      link: /api/embeddings
-
+      link: /api/
+    - theme: alt
+      text: 进入控制台
+      link: https://emrank.tech/
 features:
-  - title: OpenAI 兼容
-    details: SDK / HTTP 调用方式与 OpenAI 一致，只需替换 base_url 与 api_key。
-  - title: 多语言示例
-    details: 提供 Python / Bun / cURL 等调用示例，便于快速复制。
-  - title: 场景集成
-    details: 覆盖 KiloCode、RAGFlow、AstrBot 知识库等常见接入场景。
+  - title: 向量嵌入
+    details: 通过 OpenAI 兼容接口生成文本向量，接入知识库与语义检索。
+  - title: 重排序
+    details: 按查询与文档的相关性排序，提高检索结果质量。
+  - title: 结构化决策
+    details: 使用 Jev/Clef System One 协议完成判断、分类与评分。
 ---
 
-## Base URL
+## 服务地址
+
+OpenAI SDK 和兼容客户端的 Base URL：
 
 ```text
-https://router.tumuer.me/v1
+https://emrank.tech/v1
 ```
 
-注意：这里已包含 `/v1`，完整接口为 `https://router.tumuer.me/v1/embeddings`。
+直接 HTTP 调用使用完整路径 `/v1/embeddings`、`/v1/rerank` 或 `/v1/decisions`。Gemini 兼容入口位于 `/v1beta`。
 
-## 从这里开始
+在[主站控制台](https://emrank.tech/)登录并创建自己的 API 令牌，再从[模型广场](https://emrank.tech/models)复制完整可用模型 ID。厂商密钥由渠道管理，不应填入客户端。
 
-- 用户指南：`/guide/`（快速开始、模型列表、代码示例）
-- 场景示例：`/scenarios/`（KiloCode、RAGFlow、AstrBot 知识库）
-- API 手册：`/api/`（创建嵌入请求、创建重排序请求）
+## 开始使用
+
+- [快速开始](/guide/quickstart) · [代码示例](/guide/examples)
+- [完整模型 ID 规则](/guide/model-ids) · [计费与额度](/guide/billing)
+- [决策接口](/api/decisions) · [模型目录](/guide/models)
+- [服务状态](https://status.emrank.tech/)

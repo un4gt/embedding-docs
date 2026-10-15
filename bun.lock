@@ -11,6 +11,9 @@
       },
     },
   },
+  "patchedDependencies": {
+    "@rspress/runtime@1.47.0": "patches/@rspress%2Fruntime@1.47.0.patch",
+  },
   "packages": {
     "@babel/runtime": ["@babel/runtime@7.28.6", "", {}, "sha512-05WQkdpL9COIMz4LjTxGpPNCdlpyimKppYNoJ5Di5EUObifl8t4tuLuUBBZEpoLYOmfvIWrsp9fCl0HoPRVTdA=="],
 

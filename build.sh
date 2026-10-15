@@ -34,12 +34,8 @@ if install_bun; then
   echo "[build] Using bun"
   bun install --frozen-lockfile
   bun run build
-elif command -v npm >/dev/null 2>&1; then
-  echo "[build] Falling back to npm (no lockfile)"
-  npm install --no-audit --no-fund --package-lock=false
-  npm run build
 else
-  echo "[build] No bun and no npm found."
+  echo "[build] Bun is required to apply the locked dependencies and runtime patch."
   exit 1
 fi
 

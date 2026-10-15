@@ -4,9 +4,9 @@ import { pluginShiki } from '@rspress/plugin-shiki';
 export default defineConfig({
   plugins: [pluginShiki()],
   root: 'docs',
-  title: 'Embedding & Reranker',
+  title: 'EMRank 文档',
   description:
-    'OpenAI 兼容的 Embeddings / Rerank 使用指南：base_url、api_key、模型列表与多语言调用示例。',
+    '向量嵌入、重排序、结构化决策与计费使用指南。',
   icon: '/favicon.svg',
   logo: '/favicon.svg',
   outDir: 'dist',
@@ -17,6 +17,8 @@ export default defineConfig({
         items: [
           { text: '快速开始', link: '/guide/quickstart' },
           { text: '可用模型', link: '/guide/models' },
+          { text: '完整模型 ID', link: '/guide/model-ids' },
+          { text: '计费与额度', link: '/guide/billing' },
           { text: '代码示例', link: '/guide/examples' },
         ],
       },
@@ -33,9 +35,12 @@ export default defineConfig({
         items: [
           { text: '创建嵌入请求', link: '/api/embeddings' },
           { text: '创建重排序请求', link: '/api/rerank' },
+          { text: '创建决策请求', link: '/api/decisions' },
+          { text: 'Gemini 文本嵌入', link: '/api/gemini' },
         ],
       },
-      { text: '状态检测', link: 'https://status-router.tumuer.me/' },
+      { text: '控制台', link: 'https://emrank.tech/' },
+      { text: '状态检测', link: 'https://status.emrank.tech/' },
     ],
   },
 });

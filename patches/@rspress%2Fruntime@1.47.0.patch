@@ -1,0 +1,29 @@
+diff --git a/node_modules/@rspress/runtime/.bun-tag-e3f97f4480a1f01b b/.bun-tag-e3f97f4480a1f01b
+new file mode 100644
+index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
+diff --git a/dist/hooks.js b/dist/hooks.js
+index e57ff1fc73bd11e3bc5021d1688d10b78ff49433..4bb6eefe8665a1dc9d5b488510b06cf208e0f722 100644
+--- a/dist/hooks.js
++++ b/dist/hooks.js
+@@ -47,16 +47,17 @@ function useViewTransition(dom) {
+ }
+ function useWindowSize(initialWidth, initialHeight) {
+     const [size, setSize] = (0, __WEBPACK_EXTERNAL_MODULE_react__.useState)({
+-        width: initialWidth ?? ('undefined' == typeof window ? Number.POSITIVE_INFINITY : window.innerWidth),
+-        height: initialHeight ?? ('undefined' == typeof window ? Number.POSITIVE_INFINITY : window.innerHeight)
++        width: initialWidth ?? Number.POSITIVE_INFINITY,
++        height: initialHeight ?? Number.POSITIVE_INFINITY
+     });
+     (0, __WEBPACK_EXTERNAL_MODULE_react__.useLayoutEffect)(()=>{
+         const handleResize = ()=>{
+-            setSize({
++            (0, __WEBPACK_EXTERNAL_MODULE_react__.startTransition)(()=>setSize({
+                 width: window.innerWidth,
+                 height: window.innerHeight
+-            });
++            }));
+         };
++        handleResize();
+         window.addEventListener('resize', handleResize);
+         return ()=>{
+             window.removeEventListener('resize', handleResize);

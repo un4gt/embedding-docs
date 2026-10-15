@@ -5,9 +5,11 @@ description: 在 KiloCode 中配置 OpenAI Compatible Embeddings。
 
 1. 打开 KiloCode 的设置页，找到 **Code Index / Embeddings** 相关配置。
 2. Provider 选择 **OpenAI Compatible**（或自定义 OpenAI 兼容接口）。
-3. **Base URL** 填 `https://router.tumuer.me/v1`；**API Key** 填控制台生成的 Key。
-4. **Model** 选择任意模型（推荐 `Qwen/Qwen3-Embedding-4B`），保存后重新构建索引。
+3. **Base URL** 填 `https://emrank.tech/v1`；**API Key** 填控制台生成的 Key。
+4. **Model** 选择任意模型（推荐 `Qwen/Qwen3-Embedding-8B`），保存后重新构建索引。
 5. 如果需要填写 **Model Dimension**，可参考 [可用模型](/guide/models)；也可先调用一次 `/embeddings`，用返回向量的长度作为维度。
 
 ![KiloCode Code Index / Embeddings 设置示例：OpenAI Compatible、Base URL、API Key、Model 与 Model Dimension](/image.png)
 
+
+截图仅用于说明配置位置，旧地址和模型名不要照抄。请使用 `https://emrank.tech/v1`、本站 API 令牌及[模型广场](https://emrank.tech/models)中的完整可用模型 ID。
